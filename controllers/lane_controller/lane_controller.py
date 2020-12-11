@@ -38,9 +38,7 @@ rear_camera.enable(30)
 
 def process_front(img1,angle):
     #Return slope and midpoint 
-    #print(img1.shape)                                
-    #Crop image
-    #Preprocessing in general could be improved alot    
+
 
     img = np.zeros([img1.shape[0], img1.shape[1], img1.shape[2]-1],np.uint8)
     img[:,:,0] = img1[:,:,0]
@@ -74,34 +72,11 @@ def process_front(img1,angle):
     rect[2] =(561,79)
     rect[1] = (384 ,10)
     rect[3] = (42,79)
-    #print(rect)
-    # tl = (229,10)
-    # tr =  (384 ,10)
-    # br =(561,79)
-    # bl = (42,79)
-    # widthA = np.sqrt(((br[0] - bl[0]) ** 2) + ((br[1] - bl[1]) ** 2))
-    # widthB = np.sqrt(((tr[0] - tl[0]) ** 2) + ((tr[1] - tl[1]) ** 2))
-    # maxWidth = max(int(widthA), int(widthB))
-    # print(maxWidth)
-    # heightA = np.sqrt(((tr[0] - br[0]) ** 2) + ((tr[1] - br[1]) ** 2))
-    # heightB = np.sqrt(((tl[0] - bl[0]) ** 2) + ((tl[1] - bl[1]) ** 2))
-    # maxHeight = max(int(heightA), int(heightB))
-    # print(maxHeight)
     width = 518
     height = 198
     dst = np.array([[0, 0],[width, 0],[width , height ],[0, height]], dtype = "float32")
     M = cv.getPerspectiveTransform(rect, dst)
     thresh = cv.warpPerspective(thresh, M, (width, height))
-
-
-    
-    # scale_percent = 300 # percent of original size
-    # width = int(thresh.shape[1] * scale_percent / 100)
-    # height = int(thresh.shape[0] * scale_percent / 100)
-    # dim = (width, height)
-    # resize image
-    #thresh = cv.resize(thresh, dim, interpolation = cv.INTER_AREA)
-     
     
     # cv.namedWindow("main", cv.WINDOW_NORMAL)
     # cv.imshow('main', thresh)
@@ -113,7 +88,7 @@ def process_front(img1,angle):
     cys = np.zeros(250)
     valid = [0,0]
     count = 0
-#print(len(contours))
+#https://www.learnopencv.com/find-center-of-blob-centroid-using-opencv-cpp-python/
     if(len(contours)>1):
         for c in range(0,len(contours)):
     		
@@ -220,11 +195,9 @@ while robot.step() != -1:
     
 
     if(nav_con==-1):
-        #steer = steer_last+dsteer
-        #print("blind steer")
+
         steer = kp*1.27*math.sin(angle) 
-        # steer_last = steer
-        # angle_last = angle
+
     else:
         #steer = kp*math.sin(angle) +kd*da 
         dsteer = steer-steer_last
@@ -234,13 +207,7 @@ while robot.step() != -1:
             steer = steer_last +dsteer_max
         if(steer-steer_last<-dsteer_max):
             steer = steer_last -dsteer_max
-    # if(nav_con==-1 and n_aq>3):
-        # steer = steer_last+dsteer
-        # n_aq=0
 
-    # dsteer = steer-steer_last
-    # steer_last = steer
-    # angle_last = angle
 
     print(angle)
     print(steer)
