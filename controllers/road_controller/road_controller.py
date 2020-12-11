@@ -1,4 +1,6 @@
-"""av_challenge_controller controller."""
+#CSCI 5302 Autonomous Driving Controller
+#Srikanth Venkataraman and Jot Kaur
+#Set MAKEPLOT = True to see real time plotting of vehicle speed
 
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
@@ -124,7 +126,7 @@ while robot.step() != -1:
     img_f = front_camera.getImage()
     img_cv = np.frombuffer(img_f, np.uint8).reshape((front_camera.getHeight(), front_camera.getWidth(), 4))
     #front_camera.saveImage("stop.png",100)
-
+    
     nav_con = process_front(img_cv,shadow_state)
 
     weight = nav_con[0]
