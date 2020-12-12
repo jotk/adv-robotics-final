@@ -1,4 +1,5 @@
-"""av_challenge_controller controller."""
+#CSCI 5302 Autonomous Driving Controller
+#Srikanth Venkataraman 
 
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
@@ -132,7 +133,7 @@ b_max = 10
 counter = 0
 steer_last = 0
 angle_last = 0
-kp = .245
+kp = .248
 #kp = .21
 #kp2 = 0.025
 kp2 = .012
